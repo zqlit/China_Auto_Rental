@@ -1,2 +1,19 @@
-# China_Auto_Rental
- 神州租车PC Web页面 基于Vue2实现的纯前端项目
+# demo03
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
