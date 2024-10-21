@@ -5,13 +5,21 @@
       <router-link to="/query">网点查询</router-link>
       <router-link to="/login">登录页面</router-link>
     </nav>
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
+    <!-- <MapContainer /> -->
+    <MapSearch></MapSearch>
   </div>
 </template>
 
 <script>
+import MapContainer from './components/MapContainer.vue';
+import MapSearch from './components/MapSearch.vue';
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MapContainer,
+    MapSearch
+  },
 }
 </script>
 

@@ -2970,6 +2970,8 @@
 </template>
 
 <script>
+import MapContainer from '@/components/MapContainer.vue';
+
 export default {
   name: 'HomeView',
   data() {
@@ -2979,7 +2981,10 @@ export default {
   },
   methods: {
 
-  }
+  },
+  components: {
+    MapContainer
+  },
 };
 </script>
 
