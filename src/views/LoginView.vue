@@ -29,12 +29,12 @@
                                             <div class="ant-form-item-control-input">
                                                 <div class="ant-form-item-control-input-content"><span
                                                         class="ant-input-affix-wrapper"><span class="ant-input-prefix"><i
-                                                                class="zc-icon zc-icon-iuser"></i></span><input
-                                                            name="username" maxlength="18" placeholder="请输入注册手机号"
-                                                            class="ant-input" type="text" value=""></span>
-                                                    <div class="msg-tip on-top"><i
-                                                            class="zc-icon zc-icon-retan"></i>请输入手机号<i
-                                                            class="zc-icon zc-icon-close close-btn"></i></div>
+                                                                class="zc-icon zc-icon-iuser"></i></span>
+                                                        <input name="username" maxlength="18" placeholder="请输入用户名"
+                                                            class="ant-input" type="text" value=""
+                                                            v-model="username"></span>
+                                                    <div class="msg-tip on-top" v-if="showUsernameError"><i
+                                                            class="zc-icon zc-icon-retan"></i>请输入正确的用户名</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -51,16 +51,17 @@
                                                                 class="ant-input-affix-wrapper"><span
                                                                     class="ant-input-prefix"><i
                                                                         class="zc-icon zc-icon-idtm"></i></span><input
-                                                                    name="mobileCode" maxlength="6" placeholder="请输入动态验证码"
-                                                                    class="ant-input" type="text" value=""></span></div>
+                                                                    name="mobileCode" maxlength="6" placeholder="请输入密码"
+                                                                    class="ant-input" type="text" value=""
+                                                                    v-model="password"></span></div>
                                                         <div class="ant-col ant-col-9"
                                                             style="padding-left: 4px; padding-right: 4px;">
-                                                            <div class="captcha-btn undefined">获取手机动态码</div>
+                                                            <div class="captcha-btn undefined" @click="showPassWord">获取密码
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="msg-tip on-top"><i
-                                                            class="zc-icon zc-icon-retan"></i>请输入动态验证码<i
-                                                            class="zc-icon zc-icon-close close-btn"></i></div>
+                                                    <div class="msg-tip on-top" v-if="showEmptyFieldsError"><i
+                                                            class="zc-icon zc-icon-retan"></i>请输入正确的密码</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +73,7 @@
                                     <div class="clear"></div>
                                 </li>
                                 <li>
-                                    <div class="zuche-btn undefined primary">登录</div>
+                                    <div class="zuche-btn undefined primary" @click="login">登录</div>
                                 </li>
                             </ul>
                         </div>
@@ -155,10 +156,41 @@ export default {
     name: 'LoginView',
     data() {
         return {
-
-        };
+            username: '', password: '', showUsernameError: false,
+            showEmptyFieldsError: false
+        }
     },
     methods: {
+        login() {
+            // 假设账号为 'admin'，密码为 '123'
+            if (this.username == 'admin' && this.password == '123') {
+                alert('登录成功!');
+                // 将登录状态保存在 localStorage 中
+                localStorage.setItem('isAuthenticated', 'true');
+                // 登录成功后跳转到首页或其他页面
+                this.$router.push('/');
+            } else if (this.username === '' && this.password === '') {
+                this.showEmptyFieldsError = true;
+                this.showUsernameError = true;
+                setTimeout(() => {
+                    this.showEmptyFieldsError = false;
+                    this.showUsernameError = false;
+                }, 1000);
+            } else if (this.username !== 'admin') {
+                this.showUsernameError = true;
+                setTimeout(() => {
+                    this.showUsernameError = false;
+                }, 1000);
+            } else {
+                this.showEmptyFieldsError = true;
+                setTimeout(() => {
+                    this.showEmptyFieldsError = false;
+                }, 1000);
+            }
+        },
+        showPassWord() {
+            alert('密码123');
+        }
 
     },
     mounted() {
@@ -167,4 +199,6 @@ export default {
 };
 </script>
 
-<style scoped>.login-view {}</style>
+<style scoped>
+.login-view {}
+</style>
